@@ -25,28 +25,25 @@ const createMyOwnElement = (parent, ele, txt, classes, attr)=>{
     parent.appendChild(Ele)
     Ele.textContent = txt
     Ele.className = classes
-    Ele.setAttribute(attr.key, attr.val)
+    Ele.setAttribute(attr.key || null, attr.val || null)
      return Ele
  }
 getApi.then((x)=>{
-   let y = x.json().then(
+    x.json().then(
        (y)=> {
-           y.forEach((index, i) => {
-          const card=   createMyOwnElement(getParent, "div", null, "card", {key:"style" , val:"width 80%"})
-          const id =   createMyOwnElement(card, "span", y[i].id, null, {key:"style" , val:"width 100%"})
-          const albumId =   createMyOwnElement(card, "span", y[i].albumId, null, {key:"style" , val:""})
-
-        //   const thumbnailUrl =  createMyOwnElement(card, "img", y[i].thumbnailUrl, null, {key:"src" , val: thumbnailUrl})
-          const cardBody= createMyOwnElement(card, "div", null, "cardBody",{key:"style" , val:"80"})
-          const title =  createMyOwnElement(cardBody, "h5", y[i].title, null, {key:"style" , val: "color:red"})
-
-           
-              
-            console.log( y[i]);
-              
-           });
-       
-
+        y.forEach((index, i) => {
+            const card=   createMyOwnElement(getParent, "div", null, "card col-sm-3 col-md-3 col-xl-3 ml-l", {key:"style" , val:"width:100%"})
+            const albumId =   createMyOwnElement(card, "h3", `AlbumId: ${y[i].albumId}`, null, {key:"style" , val:""})
+            const id =   createMyOwnElement(card, "p",`Id: ${y[i].id}`, null, {key:"style" , val:""})
+  
+            const thumbnailUrl =  createMyOwnElement(card, "img", y[i].thumbnailUrl, "img-fluid", {key:"src" , val: y[i].thumbnailUrl})
+            const cardBody= createMyOwnElement(card, "div", null, "cardBody",{key:"style" , val:"80"})
+            const title =  createMyOwnElement(cardBody, "h5", `Title: ${y[i].title}`, null, {key:"style" , val: "color:red"})
+            
+              console.log( y[i])
+                
+             })
+          console.log(y[0].url)
         // console.log(y[0].id)
        }
    ) 
